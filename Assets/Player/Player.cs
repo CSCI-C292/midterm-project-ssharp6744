@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -10,10 +11,16 @@ public class Player : MonoBehaviour
     float horizontal;
     float vertical;
     float moveLimiter = 0.7f;
+    static Vector3 playerPos = new Vector3(33, 28, 1);
 
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
+
+        if (SceneManager.GetActiveScene().name == "SampleScene")
+        {
+            transform.position = playerPos - new Vector3(0, 1, 0); 
+        }
     }
 
     // Update is called once per frame
@@ -61,5 +68,55 @@ public class Player : MonoBehaviour
         float verticalMove = vertical * _moveSpeed;
 
         body.velocity = new Vector2(horizontalMove, verticalMove);
+    }
+
+    void OnTriggerEnter2D(Collider2D other) 
+    {   
+        if (other.name == "Exit")
+        {
+            SceneManager.LoadScene("SampleScene");   
+        }
+
+        if (other.name == "Stone Door")
+        {
+            playerPos = transform.position;
+            SceneManager.LoadScene("Stone House"); 
+        }
+
+        if (other.name == "Purple Door")
+        {
+            playerPos = transform.position;
+            SceneManager.LoadScene("Purple House");
+        }   
+
+        if (other.name == "Green Door")
+        {
+            playerPos = transform.position;
+            SceneManager.LoadScene("Green House");
+        } 
+
+        if (other.name == "Blue Door")
+        {
+            playerPos = transform.position;
+            SceneManager.LoadScene("Blue House");
+        }  
+
+        if (other.name == "Cave Door")
+        {
+            playerPos = transform.position;
+            SceneManager.LoadScene("Cave Front");
+        } 
+
+        if (other.name == "Forest Door")
+        {
+            playerPos = transform.position;
+            SceneManager.LoadScene("Old Man's Cave");
+        }
+
+        if (other.name == "Open Door")
+        {
+            playerPos = transform.position;
+            SceneManager.LoadScene("Cave Back");
+        }       
     }
 }
