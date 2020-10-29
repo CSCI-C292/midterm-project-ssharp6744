@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: House Sign
   m_EditorClassIdentifier: 
   DialogSlides:
-  - Usually I go to the forest to talk to my wizard friend. but recently there's
-    been a creepy figure following me around.
+  - 'Usually I go to the forest to talk to my wizard friend. '
   - But recently there's been a creepy figure following me around.
   - I'm putting this here because I'm worried something will happen...
   - (You find a sword hidden behind the sign.)

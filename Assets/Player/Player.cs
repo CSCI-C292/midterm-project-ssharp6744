@@ -9,21 +9,35 @@ public class Player : MonoBehaviour
     [SerializeField] float _moveSpeed = 5f;
     [SerializeField] Animator _animator;
     [SerializeField] RuntimeData _runtimeData;
+    [SerializeField] Dialogue _intro;
     float horizontal;
     float vertical;
     float moveLimiter = 0.7f;
     static Vector3 playerPos = new Vector3(33, 28, 1);
+    static string newScene;
+    public static GameObject sword;
+    public static GameObject axe;
+
+    void Awake() 
+    {
+        if (SceneManager.GetActiveScene().name != "SampleScene")
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
+        
+        sword = GameObject.Find("Sword");
+        axe = GameObject.Find("Axe");
+
+        sword.SetActive(false);
+        axe.SetActive(false);
+        GameEvents.InvokeDialogInitiated(_intro);
+    }
 
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
 
-        if (SceneManager.GetActiveScene().name == "SampleScene")
-        {
-            transform.position = playerPos - new Vector3(0, 1, 0); 
-        }
-
-        if (playerPos == transform.position)
+        if (SceneManager.GetActiveScene().name != "SampleScene")
         {
             GameObject.Find("DialogueUI").GetComponent<Canvas>().enabled = false;
         }
@@ -81,55 +95,77 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) 
     { 
-        _runtimeData.CurrentGameplayState = GameplayState.FreeWalk;
-
         if (other.name == "Exit")
         {
-            SceneManager.LoadScene("SampleScene"); 
-            DontDestroyOnLoad(GameObject.Find("Canvas"));  
+            SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(newScene));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName("SampleScene"));
+            transform.position = playerPos - new Vector3(0, 1, 0); 
+            
+            /*if (NPC.hasTalkedToGirl)
+            {
+                axe.SetActive(true);
+            }
+
+            if (NPC.hasTalkedToSign)
+            {
+                sword.SetActive(true);
+            }*/
         }
 
         if (other.name == "Stone Door")
         {
-            playerPos = transform.position;
-            SceneManager.LoadScene("Stone House"); 
+            newScene = "Stone House";
+            LoadNewScene(newScene);
         }
 
         if (other.name == "Purple Door")
         {
-            playerPos = transform.position;
-            SceneManager.LoadScene("Purple House");
-            DontDestroyOnLoad(GameObject.Find("Canvas"));
+            newScene = "Purple House";
+            LoadNewScene(newScene);
         }   
 
         if (other.name == "Green Door")
         {
-            playerPos = transform.position;
-            SceneManager.LoadScene("Green House");
+            newScene = "Green House";
+            LoadNewScene(newScene);
         } 
 
         if (other.name == "Blue Door")
         {
-            playerPos = transform.position;
-            SceneManager.LoadScene("Blue House");
+            newScene = "Blue House";
+            LoadNewScene(newScene);
         }  
 
         if (other.name == "Cave Door")
         {
-            playerPos = transform.position;
-            SceneManager.LoadScene("Cave Front");
+            newScene = "Cave Front";
+            LoadNewScene(newScene);
         } 
 
         if (other.name == "Forest Door")
         {
-            playerPos = transform.position;
-            SceneManager.LoadScene("Old Man's Cave");
+            newScene = "Old Man's Cave";
+            LoadNewScene(newScene);
         }
 
         if (other.name == "Open Door")
         {
-            playerPos = transform.position;
-            SceneManager.LoadScene("Cave Back");
+            newScene = "Cave Back";
+            LoadNewScene(newScene);
         }       
     }
+
+    void LoadNewScene(string scene)
+    {
+        playerPos = transform.position;
+        SceneManager.LoadScene(scene, LoadSceneMode.Additive);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SceneManager.SetActiveScene(scene);
+        transform.position = GameObject.Find("PlayerStart").transform.position;
+    }
+
 }
