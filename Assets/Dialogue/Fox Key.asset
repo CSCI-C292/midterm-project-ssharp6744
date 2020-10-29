@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00dc61f578664cb408bd9d1091322470, type: 3}
+  m_Name: Fox Key
+  m_EditorClassIdentifier: 
+  DialogSlides:
+  - Welcome back guy.
+  - Oh? You can hear me? Now I can tell someone my stories!
+  - When I was adventuring through the woods one day, I saw a man enter the cave.
+  - Well, I got inside and saw there was a chest.
+  - So, I took the chest. I can't open it, though, so you can have whatever's inside.

@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     Rigidbody2D body;
     [SerializeField] float _moveSpeed = 5f;
     [SerializeField] Animator _animator;
+    [SerializeField] RuntimeData _runtimeData;
     float horizontal;
     float vertical;
     float moveLimiter = 0.7f;
@@ -21,13 +22,21 @@ public class Player : MonoBehaviour
         {
             transform.position = playerPos - new Vector3(0, 1, 0); 
         }
+
+        if (playerPos == transform.position)
+        {
+            GameObject.Find("DialogueUI").GetComponent<Canvas>().enabled = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         // Movement code taken from: https://stuartspixelgames.com/2018/06/24/simple-2d-top-down-movement-unity-c/
-        Movement();
+        if (_runtimeData.CurrentGameplayState == GameplayState.FreeWalk)
+        {
+            Movement();    
+        }
     }
 
     void Movement()
@@ -71,10 +80,13 @@ public class Player : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other) 
-    {   
+    { 
+        _runtimeData.CurrentGameplayState = GameplayState.FreeWalk;
+
         if (other.name == "Exit")
         {
-            SceneManager.LoadScene("SampleScene");   
+            SceneManager.LoadScene("SampleScene"); 
+            DontDestroyOnLoad(GameObject.Find("Canvas"));  
         }
 
         if (other.name == "Stone Door")
@@ -87,6 +99,7 @@ public class Player : MonoBehaviour
         {
             playerPos = transform.position;
             SceneManager.LoadScene("Purple House");
+            DontDestroyOnLoad(GameObject.Find("Canvas"));
         }   
 
         if (other.name == "Green Door")
