@@ -6,6 +6,8 @@ public class NPC : MonoBehaviour
 {
     [SerializeField] Dialogue _dialog;
     [SerializeField] Dialogue _hearFox;
+    [SerializeField] GameObject _openDoor;
+    [SerializeField] GameObject _closedDoor;
     static bool hasTalkedToWizard = false;
     public static bool hasTalkedToGirl = false;
     public static bool hasTalkedToSign = false;
@@ -28,16 +30,18 @@ public class NPC : MonoBehaviour
 
            if (_dialog.name == "Girl")
            {
-               //GameObject.Find("Axe").SetActive(true);
-               //hasTalkedToGirl = true;
                Player.axe.SetActive(true);
            }
 
            if (_dialog.name == "House Sign")
            {
-               //GameObject.Find("Sword").SetActive(true);
-               //hasTalkedToSign = true;
                Player.sword.SetActive(true);
+           }
+
+           if (_dialog.name == "Wave Wall")
+           {
+               _closedDoor.SetActive(false);
+               _openDoor.SetActive(true);
            }
         }
 

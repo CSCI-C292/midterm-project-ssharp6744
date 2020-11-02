@@ -21,4 +21,12 @@ public class Axe : MonoBehaviour
             _animator.SetTrigger("Axing");
         }
     }
+
+    void OnCollisionEnter2D(Collision2D other) 
+    {
+        if (other.gameObject.name == "Tree")
+        {
+            Destroy(other.gameObject);
+        }
+    }
 }

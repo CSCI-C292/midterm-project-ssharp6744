@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     static string newScene;
     public static GameObject sword;
     public static GameObject axe;
+    public static int health = 3;
 
     void Awake() 
     {
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
 
         sword.SetActive(false);
         axe.SetActive(false);
+
         GameEvents.InvokeDialogInitiated(_intro);
     }
 
@@ -100,16 +102,6 @@ public class Player : MonoBehaviour
             SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(newScene));
             SceneManager.SetActiveScene(SceneManager.GetSceneByName("SampleScene"));
             transform.position = playerPos - new Vector3(0, 1, 0); 
-            
-            /*if (NPC.hasTalkedToGirl)
-            {
-                axe.SetActive(true);
-            }
-
-            if (NPC.hasTalkedToSign)
-            {
-                sword.SetActive(true);
-            }*/
         }
 
         if (other.name == "Stone Door")
@@ -152,7 +144,7 @@ public class Player : MonoBehaviour
         {
             newScene = "Cave Back";
             LoadNewScene(newScene);
-        }       
+        }      
     }
 
     void LoadNewScene(string scene)
@@ -167,5 +159,4 @@ public class Player : MonoBehaviour
         SceneManager.SetActiveScene(scene);
         transform.position = GameObject.Find("PlayerStart").transform.position;
     }
-
 }
