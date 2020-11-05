@@ -26,6 +26,7 @@ public class Slime : MonoBehaviour
     {
         if (other.name == "Player") 
             target = other.transform;
+            GetComponent<Rigidbody2D>().isKinematic = true;
     }
  
     void OnTriggerExit2D(Collider2D other) 

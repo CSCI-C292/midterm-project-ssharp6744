@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Restart : MonoBehaviour
 {
+    [SerializeField] GameObject _mainMenu;
     [SerializeField] GameObject emptyHeart2;
     [SerializeField] GameObject emptyHeart3;
     [SerializeField] GameObject _blueSlime;
@@ -32,6 +33,25 @@ public class Restart : MonoBehaviour
         GameObject.Find("Win Screen").SetActive(false);
     }
 
+    public void OnMainMenu()
+    {
+        if (SceneManager.GetActiveScene().name == "SampleScene")
+        {
+            RestartGame();
+            Player.axe.SetActive(false);
+            Player.sword.SetActive(false);
+            Player.tree.SetActive(true);
+            Player.hasLoaded = true;
+            _mainMenu.SetActive(true);
+        }
+
+        if (SceneManager.GetActiveScene().name == "Cave Front")
+        {
+            CompleteRestartGame();
+            _mainMenu.SetActive(true);
+        }
+    }
+
     void LoadAssets()
     {
         GameObject.Find("Player").transform.position = GameObject.Find("Beginning").transform.position;
@@ -45,5 +65,13 @@ public class Restart : MonoBehaviour
         _greenSlime2.SetActive(true);
         _orangeSlime.SetActive(true);
         _orangeSlime2.SetActive(true);
+
+        _blueSlime.transform.position = new Vector3(-25.43f, -22.83f, 0);
+        _blueSlime2.transform.position = new Vector3(7.33f, -30.79f, 0);
+        _blueSlime3.transform.position = new Vector3(39.39f, -32.09f, 0);
+        _greenSlime.transform.position = new Vector3(-12.04f, -26.24f, 0);
+        _greenSlime2.transform.position = new Vector3(16.28f, -27.33f, 0);
+        _orangeSlime.transform.position = new Vector3(7.42f, -22.83f, 0);
+        _orangeSlime2.transform.position = new Vector3(44.75f, -22.83f, 0);
     }
 }

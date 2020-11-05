@@ -48,6 +48,16 @@ public class Player : MonoBehaviour
             Movement();    
         }
 
+        if (GameObject.Find("Main Menu") == null)
+        {
+            hasLoaded = false;
+        }
+
+        if (GameObject.Find("Main Menu") != null)
+        {
+            hasLoaded = true;
+        }
+
         if (hasLoaded)
         {
             GameEvents.InvokeDialogInitiated(_intro);

@@ -72,12 +72,15 @@ public class NPC : MonoBehaviour
                 }
             }   
         }
-
-        isInside = false;
     }
 
     void OnTriggerStay2D(Collider2D other) 
     {
         isInside = true;
+    }
+
+    void OnTriggerExit2D(Collider2D other) 
+    {
+        isInside = false;
     }
 }

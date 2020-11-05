@@ -11,9 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Blue House.unity
     guid: baf2fcd1691514d4795b6acee5438f28
-  - enabled: 1
-    path: Assets/Scenes/Cave Back.unity
-    guid: aa1ea7742555db241a0351144cce7862
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Cave Front.unity
     guid: 7c0676524b9b3a0429fa0e1429ab4d67
@@ -29,7 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stone House.unity
     guid: c504f9befd40bae4099eb11de9c600e5
-  - enabled: 1
-    path: Assets/Scenes/GameOver.unity
-    guid: 423ecbf6725a68c4d9cddcb915525305
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}
