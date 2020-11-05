@@ -10,39 +10,33 @@ public class Player : MonoBehaviour
     [SerializeField] Animator _animator;
     [SerializeField] RuntimeData _runtimeData;
     [SerializeField] Dialogue _intro;
+    [SerializeField] GameObject _winText;
     float horizontal;
     float vertical;
     float moveLimiter = 0.7f;
-    static Vector3 playerPos = new Vector3(33, 28, 1);
+    static Vector3 playerPos;
     static string newScene;
     public static GameObject sword;
     public static GameObject axe;
+    public static GameObject tree;
     public static int health = 3;
+    public static bool hasLoaded = true;
 
     void Awake() 
-    {
-        if (SceneManager.GetActiveScene().name != "SampleScene")
-        {
-            SceneManager.LoadScene("SampleScene");
-        }
-        
+    {   
         sword = GameObject.Find("Sword");
         axe = GameObject.Find("Axe");
-
+        tree = GameObject.Find("Tree");
+        
         sword.SetActive(false);
         axe.SetActive(false);
 
-        GameEvents.InvokeDialogInitiated(_intro);
+        playerPos = transform.position;
     }
 
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
-
-        if (SceneManager.GetActiveScene().name != "SampleScene")
-        {
-            GameObject.Find("DialogueUI").GetComponent<Canvas>().enabled = false;
-        }
     }
 
     // Update is called once per frame
@@ -53,10 +47,25 @@ public class Player : MonoBehaviour
         {
             Movement();    
         }
+
+        if (hasLoaded)
+        {
+            GameEvents.InvokeDialogInitiated(_intro);
+            hasLoaded = false;
+        }
+
+        if (_runtimeData.CurrentGameplayState == GameplayState.InDialog)
+        {
+            _animator.SetFloat("Speed", 0);
+            body.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
     }
 
     void Movement()
     {
+        body.constraints = RigidbodyConstraints2D.None;
+        body.constraints = RigidbodyConstraints2D.FreezeRotation;
+        
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
 
@@ -142,9 +151,17 @@ public class Player : MonoBehaviour
 
         if (other.name == "Open Door")
         {
-            newScene = "Cave Back";
-            LoadNewScene(newScene);
-        }      
+            transform.position = GameObject.Find("End").transform.position;
+        } 
+    }
+
+    void OnTriggerStay2D(Collider2D other) 
+    {
+        if (other.name == "End" && NPC.hasWon && _runtimeData.CurrentGameplayState == GameplayState.FreeWalk)
+        {
+            _winText.SetActive(true);
+            NPC.hasWon = false;
+        }  
     }
 
     void LoadNewScene(string scene)

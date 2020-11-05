@@ -5,6 +5,7 @@ using UnityEngine;
 public class Axe : MonoBehaviour
 {
     [SerializeField] Animator _animator;
+    public static GameObject tree;
 
     // Update is called once per frame
     void Update()
@@ -26,7 +27,7 @@ public class Axe : MonoBehaviour
     {
         if (other.gameObject.name == "Tree")
         {
-            Destroy(other.gameObject);
+            Player.tree.SetActive(false);
         }
     }
 }
