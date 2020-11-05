@@ -8,12 +8,6 @@ public class Slime : MonoBehaviour
     [SerializeField] float _moveSpeed = 3f;
     Transform target;
     Vector3 direction;
-    public static Vector3 slimePos;
-
-    void Awake() 
-    {
-        slimePos = transform.position;
-    }
 
     // Update is called once per frame
     // Movement mostly taken from https://answers.unity.com/questions/669598/detect-if-player-is-in-range-1.html
