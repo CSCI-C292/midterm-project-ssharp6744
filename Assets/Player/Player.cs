@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] RuntimeData _runtimeData;
     [SerializeField] Dialogue _intro;
     [SerializeField] GameObject _winText;
+    [SerializeField] GameObject _audio;
     float horizontal;
     float vertical;
     float moveLimiter = 0.7f;
@@ -48,20 +49,17 @@ public class Player : MonoBehaviour
             Movement();    
         }
 
-        if (GameObject.Find("Main Menu") == null)
-        {
-            hasLoaded = false;
-        }
-
         if (GameObject.Find("Main Menu") != null)
         {
             hasLoaded = true;
+            _audio.SetActive(true);
         }
 
         if (hasLoaded)
         {
             GameEvents.InvokeDialogInitiated(_intro);
             hasLoaded = false;
+            _audio.SetActive(true);
         }
 
         if (_runtimeData.CurrentGameplayState == GameplayState.InDialog)
@@ -120,7 +118,12 @@ public class Player : MonoBehaviour
         {
             SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(newScene));
             SceneManager.SetActiveScene(SceneManager.GetSceneByName("SampleScene"));
-            transform.position = playerPos - new Vector3(0, 1, 0); 
+            transform.position = playerPos - new Vector3(0, 1, 0);
+
+            if (newScene == "Cave Front")
+            {
+                _audio.SetActive(true);
+            } 
         }
 
         if (other.name == "Stone Door")
@@ -150,6 +153,7 @@ public class Player : MonoBehaviour
         if (other.name == "Cave Door")
         {
             newScene = "Cave Front";
+            _audio.SetActive(false);
             LoadNewScene(newScene);
         } 
 

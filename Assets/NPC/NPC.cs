@@ -9,7 +9,7 @@ public class NPC : MonoBehaviour
     [SerializeField] GameObject _openDoor;
     [SerializeField] GameObject _closedDoor;
     static bool hasTalkedToWizard = false;
-    static bool hasKey = true;
+    static bool hasKey = false;
     public static bool hasWon = false;
     bool isInside = false;
 
