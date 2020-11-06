@@ -10,13 +10,13 @@ public class Axe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire3") && transform.parent.GetComponentInParent<SpriteRenderer>().flipX == false)
+        if (Input.GetButtonDown("Fire2") && transform.parent.GetComponentInParent<SpriteRenderer>().flipX == false)
         {
             _animator.SetBool("Right", true);
             _animator.SetTrigger("Axing");
         }
 
-        if (Input.GetButtonDown("Fire3") && transform.parent.GetComponentInParent<SpriteRenderer>().flipX == true)
+        if (Input.GetButtonDown("Fire2") && transform.parent.GetComponentInParent<SpriteRenderer>().flipX == true)
         {
             _animator.SetBool("Right", false);
             _animator.SetTrigger("Axing");

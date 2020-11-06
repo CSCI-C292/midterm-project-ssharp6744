@@ -7,6 +7,7 @@ public class Collider : MonoBehaviour
     [SerializeField] GameObject _gameOver;
     [SerializeField] GameObject emptyHeart2;
     [SerializeField] GameObject emptyHeart3;
+    static public bool isCollided;
 
     void OnTriggerEnter2D(Collider2D other) 
     {
@@ -24,7 +25,7 @@ public class Collider : MonoBehaviour
         if (other.name == "Sword")
         {
             transform.parent.gameObject.SetActive(false);
-        } 
+        }
     }
 
     void RemoveHeart()

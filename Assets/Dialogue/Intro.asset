@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Intro
   m_EditorClassIdentifier: 
   DialogSlides:
-  - (Click left mouse button to continue)
+  - (Press Space to continue)
   - 'Legends have been passed through generations of a boy dressed in green. '
   - He risked his life to save those he loved and those he did not know.
   - 'Colin has heard these tales since he was a toddler. '
